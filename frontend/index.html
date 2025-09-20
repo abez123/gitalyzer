@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gitalyzer — Friendly GitHub Explainer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__content">
+        <h1>Gitalyzer</h1>
+        <p class="hero__tagline">
+          Paste a GitHub link, invite the AI guide, and walk away with a beginner-friendly
+          summary, an online presentation, and a ready-to-share PDF.
+        </p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card card--form">
+        <h2>Analyze a repository</h2>
+        <form id="analyze-form" class="form">
+          <label for="repo-url">GitHub repository URL</label>
+          <input
+            type="url"
+            id="repo-url"
+            placeholder="https://github.com/owner/project"
+            required
+          />
+
+          <label for="api-key">OpenAI API key <span class="muted">(optional)</span></label>
+          <input
+            type="password"
+            id="api-key"
+            placeholder="sk-..."
+            autocomplete="off"
+          />
+          <p class="helper-text">
+            The key never leaves your browser except to call OpenAI for this one request.
+          </p>
+
+          <label for="model">Model override <span class="muted">(optional)</span></label>
+          <input
+            type="text"
+            id="model"
+            placeholder="gpt-4o-mini"
+            autocomplete="off"
+          />
+
+          <button id="submit-btn" type="submit">Run analysis</button>
+        </form>
+        <p id="status-message" class="status-message"></p>
+      </section>
+
+      <section class="card">
+        <div class="card__header">
+          <h2>Repository snapshot</h2>
+          <span id="ai-status" class="badge badge--neutral">Waiting for analysis...</span>
+        </div>
+        <div id="repo-info" class="section-body empty">
+          <p>Submit a repository to see its key stats, languages, and README highlights.</p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card__header">
+          <h2>Friendly explanation</h2>
+          <div class="card__actions">
+            <button id="start-presentation" class="ghost" disabled>Start presentation</button>
+            <button id="download-pdf" disabled>Download PDF</button>
+          </div>
+        </div>
+        <div id="analysis-content" class="section-body empty">
+          <p>
+            Once the AI has finished, the explanation will appear here with simple language,
+            action steps, and a glossary.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div id="presentation-overlay" class="presentation hidden" aria-hidden="true">
+      <div class="presentation__content">
+        <button id="close-presentation" class="close-btn" aria-label="Close presentation">
+          ×
+        </button>
+        <div class="presentation__body">
+          <h3 id="presentation-title"></h3>
+          <p id="presentation-text"></p>
+          <ul id="presentation-list"></ul>
+        </div>
+        <div class="presentation__controls">
+          <button id="prev-slide" class="ghost">Back</button>
+          <span id="presentation-progress" class="presentation__progress"></span>
+          <button id="next-slide">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
